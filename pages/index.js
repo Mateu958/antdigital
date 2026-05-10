@@ -1,16 +1,43 @@
 import { useState } from "react"
+import { initializeApp } from "firebase/app"
+import {
+  getAuth,
+  signInWithEmailAndPassword
+} from "firebase/auth"
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB-TYhBxvGlwYvlxl194udnTinMX4LGgE",
+  authDomain: "studio-8362245741-7bdea.firebaseapp.com",
+  projectId: "studio-8362245741-7bdea",
+  storageBucket: "studio-8362245741-7bdea.firebasestorage.app",
+  messagingSenderId: "257711236964",
+  appId: "1:257711236964:web:09271b32da288953c37c71"
+}
+
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
 
 export default function Home() {
 
   const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
 
-  function entrar() {
+  async function entrar() {
 
-    if(email === "admin@gmail.com" && senha === "123456") {
-      alert("Login realizado com sucesso")
-    } else {
-      alert("Email ou senha incorretos")
+    try {
+
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        senha
+      )
+
+      alert("Login real realizado com sucesso")
+
+    } catch (erro) {
+
+      alert("Email ou senha inválidos")
+
     }
 
   }
